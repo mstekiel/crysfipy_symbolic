@@ -5,8 +5,12 @@ Symbolic calculations in sympy aiming at determining ananlytical formulas for en
 ## To read
 - https://en.wikipedia.org/wiki/Crystal_field_theory
 
+## Sebastian
+- Edit the `CEF-symbolic.py` script to define the J (`Jval`), symmetry (`Bij`) and the hamiltonian `H`.
+
 ## TODO
-1. See if there is influence on the simplified formulas by changing floats in cefmatrices.py into sympy.Rationals.
+1. [ ] Code in which `Bij` parameters go into Hamiltonian, depending on symmetry.
+2. [ ] See if there is influence on the simplified formulas by changing floats in cefmatrices.py into sympy.Rationals.
 
 ## Ideas
 Ideas how to improve:
