@@ -8,23 +8,21 @@ from cefmatrices import *
 sympy.init_printing(use_unicode=False)
 B20, B22, B40, B42, B44, B60, B62, B64, B66 = sympy.symbols('B20, B22, B40, B42, B44, B60, B62, B64, B66')
 
-# Symbolic analysis of the crystal field effects in CeAuAl3
 
 # Dont forget to edit these fields
 Jval = sympy.Rational(5,2)
 Jvalstr = f'{Jval:.1f}'.replace('.','p')
-filenameprefix = f'C:/Users/Stekiel/Documents/GitHub/mikibox/mikibox/crysfipy/symbolic/Symbolic-output/J_{Jvalstr}_B20_B22_B40_B42_B44'
-
-print(J_plus(Jval))
-print(J_minus(Jval))
+filenameprefix = f'./Symbolic-output/J_{Jvalstr}_B20_B22_B40_B42_B44'
 
 H = sympy.Matrix(   B20 * O_20(Jval) + B22 * O_22(Jval) + B40 * O_40(Jval) + B42 * O_42(Jval) + B44 * O_44(Jval))
 print(H)
 
 diagonalize = True
-exportLatex = True
+exportLatex = False
 exportSympy = True
 exportMD = True
+
+
 
 # Run calcualtions
 
