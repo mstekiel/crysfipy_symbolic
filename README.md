@@ -11,6 +11,7 @@ Symbolic calculations in sympy aiming at determining ananlytical formulas for en
 ## TODO
 1. [ ] Code in which `Bij` parameters go into Hamiltonian, depending on symmetry.
 2. [ ] See if there is influence on the simplified formulas by changing floats in cefmatrices.py into sympy.Rationals.
+3. [ ] Looking at https://ptable.com/#Electrons/OxidationStates determine J fo all lanthanides.
 
 ## Ideas
 Ideas how to improve:
