@@ -8,9 +8,9 @@ Symbolic calculations in sympy aiming at determining ananlytical formulas for en
 ## Sebastian
 - Edit the `CEF-symbolic.py` script to define the J (`Jval`), symmetry (`Bij`) and the hamiltonian `H`.
 
-## TODO
-1. [ ] Code in which `Bij` parameters go into Hamiltonian, depending on symmetry.
-2. [ ] See if there is influence on the simplified formulas by changing floats in cefmatrices.py into sympy.Rationals.
+## TASKS
+1. [ ] Code in which `Bij` parameters go into Hamiltonian, depending on symmetry and implement into a switch case.
+2. [ ] See if there is influence on the simplified formulas by changing floats in cefmatrices.py into sympy.Rationals and imaginary unit 'j' into sympy.I
 3. [ ] Looking at https://ptable.com/#Electrons/OxidationStates determine J fo all lanthanides.
 
 ## Ideas
