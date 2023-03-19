@@ -56,7 +56,7 @@ def O_22(J,convention = 1):
 	Jplus = J_plus(J,convention)
 	Jminus = J_minus(J,convention)
 
-	return 0.5 * (mp(Jplus, 2) + mp(Jminus, 2))
+	return sympy.Rational(1,2) * (mp(Jplus, 2) + mp(Jminus, 2))
 
 def O_40(J,convention = 1):
 	JJ = J*(J+1)
@@ -81,7 +81,7 @@ def O_42(J,convention = 1):
 	M_1 = 7 * mp(Jz, 2) - E*(JJ + 5)
 	M_2 = mp(Jplus, 2) + mp(Jminus, 2)
 
-	return 0.25 * (dot(M_1, M_2) + dot(M_2, M_1))
+	return sympy.Rational(1,4) * (dot(M_1, M_2) + dot(M_2, M_1))
 
 def O_43(J,convention = 1):
 	JJ = J*(J+1)
@@ -95,7 +95,7 @@ def O_43(J,convention = 1):
 	M_1 = Jz
 	M_2 = mp(Jplus, 3) + mp(Jminus, 3)
 	
-	return 0.25 * (dot(M_1, M_2) + dot(M_2, M_1))
+	return sympy.Rational(1,4) * (dot(M_1, M_2) + dot(M_2, M_1))
 
 
 def O_44(J,convention = 1):
@@ -105,7 +105,7 @@ def O_44(J,convention = 1):
 	Jplus = J_plus(J,convention)
 	Jminus = J_minus(J,convention)
 	
-	return 0.5 * (mp(Jplus, 4) + mp(Jminus, 4))
+	return sympy.Rational(1,2) * (mp(Jplus, 4) + mp(Jminus, 4))
 
 
 def O_60(J,convention = 1):
@@ -130,7 +130,7 @@ def O_62(J,convention = 1):
 	M_1 = 33 * mp(Jz, 4) - mp(Jz, 2) * (18 * JJ + 123) + dot(E, JJ**2 + 10*JJ + 102)
 	M_2 = mp(Jplus, 2) + mp(Jminus, 2)
 
-	return 0.25 * (dot(M_1, M_2) + dot(M_2, M_1))
+	return sympy.Rational(1,4) * (dot(M_1, M_2) + dot(M_2, M_1))
 
 def O_63(J,convention = 1):
 	JJ = J*(J+1)
@@ -144,7 +144,7 @@ def O_63(J,convention = 1):
 	M_1 = 11 * mp(Jz, 3) - Jz * (59 + 3*JJ)
 	M_2 = mp(Jplus, 3) + mp(Jminus, 3)
 	
-	return 0.25 * (dot(M_1, M_2) + dot(M_2, M_1))
+	return sympy.Rational(1,4) * (dot(M_1, M_2) + dot(M_2, M_1))
 
 def O_64(J,convention = 1):
 	JJ = J*(J+1)
@@ -159,7 +159,7 @@ def O_64(J,convention = 1):
 	M_1 = 11 * mp(Jz, 2) - E * (JJ + 38)
 	M_2 = mp(Jplus, 4) + mp(Jminus, 4)
 
-	return 0.25 * (dot(M_1, M_2) + dot(M_2, M_1))
+	return sympy.Rational(1,4) * (dot(M_1, M_2) + dot(M_2, M_1))
 
 
 def O_66(J,convention = 1):
@@ -169,7 +169,7 @@ def O_66(J,convention = 1):
 	Jplus = J_plus(J,convention)
 	Jminus = J_minus(J,convention)
 	
-	return 0.5 * (mp(Jplus, 6) + mp(Jminus, 6))
+	return sympy.Rational(1,2) * (mp(Jplus, 6) + mp(Jminus, 6))
 
 
 if __name__ == '__main__':
