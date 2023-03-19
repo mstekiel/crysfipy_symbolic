@@ -6,16 +6,42 @@ from timeit import default_timer as timer
 from cefmatrices import *
 
 sympy.init_printing(use_unicode=False)
-B20, B22, B40, B42, B44, B60, B62, B64, B66 = sympy.symbols('B20, B22, B40, B42, B44, B60, B62, B64, B66')
+B20, B22, B40, B42, B43, B44, B60, B62, B63, B64, B66 = sympy.symbols('B20, B22, B40, B42, B43, B44, B60, B62, B63, B64, B66')
 
 
 # Dont forget to edit these fields
 Jval = sympy.Rational(3,2)
-Jvalstr = f'{Jval:.1f}'.replace('.','p')
-filenameprefix = f'./Symbolic-output/J_{Jvalstr}_B20_B22_B40'
+lattice='hexagonal_1' #can vary
 
-H = sympy.Matrix(   B20 * O_20(Jval) + B22 * O_22(Jval) + B40 * O_40(Jval))
-print(H)
+Jvalstr = f'{Jval:.1f}'.replace('.','p')
+filenameprefix = f'./Symbolic-output/J_{Jvalstr}_lattice'
+
+match lattice:
+	case 'triclinic':
+		H = sympy.Matrix(B20 * O_20(Jval) + B22 * O_22(Jval) + B40 * O_40(Jval) + B42 * O_42(Jval) + B43 * O_43(Jval) + B44 * O_44(Jval) + B60 * O_60(Jval) + B62 * O_62(Jval) + B63 * O_63(Jval) + B64 * O_64(Jval) + B66 * O_66(Jval))
+	case 'monoclinic':
+		H = sympy.Matrix(B20 * O_20(Jval) + B22 * O_22(Jval) + B40 * O_40(Jval) + B42 * O_42(Jval) + B44 * O_44(Jval) + B60 * O_60(Jval) + B62 * O_62(Jval) + B64 * O_64(Jval))
+	case 'rhombic':
+		H = sympy.Matrix(B20 * O_20(Jval) + B22 * O_22(Jval) + B40 * O_40(Jval) + B42 * O_42(Jval) + B44 * O_44(Jval) + B60 * O_60(Jval) + B62 * O_62(Jval) + B64 * O_64(Jval))
+	case 'tetragonal_1':
+		H = sympy.Matrix(B20 * O_20(Jval) + B40 * O_40(Jval) + B44 * O_44(Jval) + B60 * O_60(Jval) + B64 * O_64(Jval))
+	case 'tetragonal_2':
+		H = sympy.Matrix(B20 * O_20(Jval) + B40 * O_40(Jval) + B44 * O_44(Jval) + B60 * O_60(Jval) + B64 * O_64(Jval))
+	case 'trigonal_1':
+		H = sympy.Matrix(B20 * O_20(Jval) + B40 * O_40(Jval) + B43 * O_43(Jval) + B60 * O_60(Jval) + B63 * O_63(Jval) + B66 * O_66(Jval))
+	case 'trigonal_2':
+		H = sympy.Matrix(B20 * O_20(Jval) + B40 * O_40(Jval) + B43 * O_43(Jval) + B60 * O_60(Jval) + B63 * O_63(Jval) + B66 * O_66(Jval))
+	case 'hexagonal_1':
+		H = sympy.Matrix(B20 * O_20(Jval) + B40 * O_40(Jval) + B60 * O_60(Jval) + B66 * O_66(Jval))
+	case 'hexagonal_2':
+		H = sympy.Matrix(B20 * O_20(Jval) + B40 * O_40(Jval) + B60 * O_60(Jval) + B66 * O_66(Jval))
+	case 'cubic_1':
+		H = sympy.Matrix(B40 * O_40(Jval) + sympy.Rational(5,2) * B40 * O_40(Jval) + B60 * O_60(Jval) + -1 * B66 * O_66(Jval) + sympy.Rational(-21, 2) * B60 * O_60(Jval) + B66 * O_66(Jval))
+	case 'cubic_2':
+		H = sympy.Matrix(B40 * O_40(Jval) + sympy.Rational(5,2) * B40 * O_40(Jval) + B60 * O_60(Jval) + sympy.Rational(-21, 2) * B60 * O_60(Jval))
+
+print( H )
+
 
 diagonalize = True
 exportLatex = False
