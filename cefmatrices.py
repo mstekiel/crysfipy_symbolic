@@ -20,10 +20,10 @@ def J_z(J,convention=1):
     # return diag(linspace(convention * J,convention * (-J),int(2*J+1)))
 
 def J_y(J,convention = 1):
-	return .5/1.j*(J_plus(J,convention) - J_minus(J,convention))
+	return -sympy.I * sympy.Rational(1,2) * (J_plus(J,convention) - J_minus(J,convention))
 
 def J_x(J,convention = 1):
-	return .5 * (J_plus(J,convention) + J_minus(J,convention))
+	return sympy.Rational(1,2) * (J_plus(J,convention) + J_minus(J,convention))
 
 
 
@@ -155,11 +155,26 @@ def O_64(J,convention = 1):
 	Jplus = J_plus(J,convention)
 	Jminus = J_minus(J,convention)
 
-    # helper matrices:	
+    	# helper matrices:	
+	M_1 = 11 * mp(Jz, 2) - E * (JJ + 38)
+	M_2 = mp(Jplus, 4) - mp(Jminus, 4)
+
+	return sympy.Rational(1,4) * (dot(M_1, M_2) + dot(M_2, M_1))
+
+def O_6m4(J,convention = 1):
+	JJ = J*(J+1)
+	J2p1 = int(2*J + 1)
+
+	E = eye(J2p1)
+	Jz = J_z(J,convention)
+	Jplus = J_plus(J,convention)
+	Jminus = J_minus(J,convention)
+
+    	# helper matrices:	
 	M_1 = 11 * mp(Jz, 2) - E * (JJ + 38)
 	M_2 = mp(Jplus, 4) + mp(Jminus, 4)
 
-	return sympy.Rational(1,4) * (dot(M_1, M_2) + dot(M_2, M_1))
+	return -sympy.I * sympy.Rational(1,4) * (dot(M_1, M_2) + dot(M_2, M_1))
 
 
 def O_66(J,convention = 1):
@@ -170,6 +185,15 @@ def O_66(J,convention = 1):
 	Jminus = J_minus(J,convention)
 	
 	return sympy.Rational(1,2) * (mp(Jplus, 6) + mp(Jminus, 6))
+
+def O_6m6(J,convention = 1):
+	JJ = J*(J+1)
+	J2p1 = int(2*J + 1)
+
+	Jplus = J_plus(J,convention)
+	Jminus = J_minus(J,convention)
+	
+	return -sympy.I * sympy.Rational(1,2) * (mp(Jplus, 6) - mp(Jminus, 6))
 
 
 if __name__ == '__main__':
