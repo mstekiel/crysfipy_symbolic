@@ -8,6 +8,8 @@ Most important things so far:
     The convention can be flipped so that first entry corresponds to the lowest spin,
     by the 'convention=-1' keyword in all matrices.
  2. The CEF operators correspond to the Stevens notation.
+ 3. Stevens operators correspond to observables, thus they should be hermitian.
+    By running the library a check is performed to see if all Onm matrices are hermitian.
 '''
 
 import sympy
@@ -120,17 +122,32 @@ def O_60(J,convention = 1):
 def O_62(J,convention = 1):
 	JJ = J*(J+1)
 	J2p1 = int(2*J + 1)
-	
+
 	E = eye(J2p1)
 	Jz = J_z(J,convention)
 	Jplus = J_plus(J,convention)
 	Jminus = J_minus(J,convention)
-	
-    # helper matrices:	
+
+	# helper matrices:	
 	M_1 = 33 * mp(Jz, 4) - mp(Jz, 2) * (18 * JJ + 123) + dot(E, JJ**2 + 10*JJ + 102)
 	M_2 = mp(Jplus, 2) + mp(Jminus, 2)
 
 	return sympy.Rational(1,4) * (dot(M_1, M_2) + dot(M_2, M_1))
+
+def O_6m2(J,convention = 1):
+	JJ = J*(J+1)
+	J2p1 = int(2*J + 1)
+
+	E = eye(J2p1)
+	Jz = J_z(J,convention)
+	Jplus = J_plus(J,convention)
+	Jminus = J_minus(J,convention)
+
+	# helper matrices:	
+	M_1 = 33 * mp(Jz, 4) - mp(Jz, 2) * (18 * JJ + 123) + dot(E, JJ**2 + 10*JJ + 102)
+	M_2 = mp(Jplus, 2) - mp(Jminus, 2)
+
+	return -sympy.I * sympy.Rational(1,4) * (dot(M_1, M_2) + dot(M_2, M_1))
 
 def O_63(J,convention = 1):
 	JJ = J*(J+1)
@@ -140,11 +157,25 @@ def O_63(J,convention = 1):
 	Jplus = J_plus(J,convention)
 	Jminus = J_minus(J,convention)
 
-    # helper matrices:	
+	# helper matrices:	
 	M_1 = 11 * mp(Jz, 3) - Jz * (59 + 3*JJ)
 	M_2 = mp(Jplus, 3) + mp(Jminus, 3)
-	
+
 	return sympy.Rational(1,4) * (dot(M_1, M_2) + dot(M_2, M_1))
+
+def O_6m3(J,convention = 1):
+	JJ = J*(J+1)
+	J2p1 = int(2*J + 1)
+
+	Jz = J_z(J,convention)
+	Jplus = J_plus(J,convention)
+	Jminus = J_minus(J,convention)
+
+	# helper matrices:	
+	M_1 = 11 * mp(Jz, 3) - Jz * (59 + 3*JJ)
+	M_2 = mp(Jplus, 3) - mp(Jminus, 3)
+
+	return -sympy.I * sympy.Rational(1,4) * (dot(M_1, M_2) + dot(M_2, M_1))
 
 def O_64(J,convention = 1):
 	JJ = J*(J+1)
