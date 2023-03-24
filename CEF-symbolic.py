@@ -12,8 +12,8 @@ B60, B62, B6m2, B63, B6m3, B64, B6m4, B66, B6m6 = sympy.symbols('B60, B62, B6m2,
 
 
 # Dont forget to edit these fields
-Jval = 4
-lattice='cubic_2'
+Jval = 2
+lattice='monoclinic'
 
 
 ###
