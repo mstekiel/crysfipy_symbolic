@@ -54,11 +54,11 @@ H = sympy.Matrix({
 'hexagonal_2':
     B20*O_20(Jval) + B40*O_40(Jval) + B60*O_60(Jval) + B66*O_66(Jval),
 'cubic_1':
-    B40*O_40(Jval) + sympy.Rational(5,2)*B40*O_44(Jval) + \
-    B60*O_60(Jval) + -1*B66*O_62(Jval) + sympy.Rational(-21, 2)*B60*O_64(Jval) + B66*O_66(Jval),
+    B40*O_40(Jval) + sympy.Rational(5,2)*B40*O_40(Jval) + \
+    B60*O_60(Jval) + -1*B66*O_66(Jval) + sympy.Rational(-21, 2)*B60*O_60(Jval) + B66*O_66(Jval),
 'cubic_2':
-    B40*O_40(Jval) + sympy.Rational(5,2)*B40*O_44(Jval) + \
-    B60*O_60(Jval) + sympy.Rational(-21, 2)*B60*O_64(Jval)
+    B40*O_40(Jval) + sympy.Rational(5,2)*B40*O_40(Jval) + \
+    B60*O_60(Jval) + sympy.Rational(-21, 2)*B60*O_60(Jval)
 }[lattice])
 
 sympy.pprint( H )
