@@ -1,3 +1,4 @@
+# J values for Lanthanides assuming the f-orbitals are occupied like free ions
 La:0
 Ce:-2.5
 Pr:-4.5
