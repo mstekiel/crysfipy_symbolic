@@ -13,7 +13,7 @@ B60, B62, B6m2, B63, B6m3, B64, B6m4, B66, B6m6 = sympy.symbols('B60, B62, B6m2,
 
 # Dont forget to edit these fields
 Jval = 2.5
-lattice='orthorhombic'
+lattice='cubic_1'
 # Ex.1 interesting set of 4D matrices
 # Jval = 11.5   
 # lattice='hexagonal_2'

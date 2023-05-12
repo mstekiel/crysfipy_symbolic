@@ -8,6 +8,7 @@ Symbolic calculations in sympy aiming at determining ananlytical formulas for en
 ## TODO
 - [ ] Take a look at the Hamiltonian for all symmetries and J up to 5 and determine what kind of blocks are present.
 - [ ] Based on how the blocks look like, implement the solutions for eigenvalues for specific matrices.
+  - [ ] Construct the characteristic polynomial and investigate whether it can be divided by other polynomial.
 - [X] Code in which `Bij` parameters go into Hamiltonian, depending on symmetry.
   - [X] please double-check my new implementation with www2.cpfs.mpg.de/~rotter/homepage_mcphase/manual/node133.html webpage (corrected, see commit history)
 - [X] Run calculations for various symmetries and check what is the highes J for which the calculations runs fast (let's say up to 10 seconds).
