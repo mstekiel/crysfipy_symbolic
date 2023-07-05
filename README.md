@@ -4,11 +4,16 @@ Symbolic calculations in sympy aiming at determining ananlytical formulas for en
 
 ## To read
 - https://en.wikipedia.org/wiki/Crystal_field_theory
+- http://cbpfindex.cbpf.br/publication_pdfs/NF01594.2011_06_07_15_09_34.pdf Brazilians did obtain analytical results for the cubic case with limited number of J values. They are different from ours. We need to check numerically if our definitions are ok.
+
+## To check
+- https://www.sciencedirect.com/science/article/pii/0022369762901920 apparently a seminal work work the 'cubic_2' case.
 
 ## TODO
-- [ ] Take a look at the Hamiltonian for all symmetries and J up to 5 and determine what kind of blocks are present.
-- [ ] Based on how the blocks look like, implement the solutions for eigenvalues for specific matrices.
-  - [ ] Construct the characteristic polynomial and investigate whether it can be divided by other polynomial.
+- [X] Construct the characteristic polynomial and investigate whether it can be divided by other polynomial. -> This works marvelously !!!
+  - [ ] Take a look at the eigenvectors
+- [X] Take a look at the Hamiltonian for all symmetries and J up to 5 and determine what kind of blocks are present.
+- [X] Based on how the blocks look like, implement the solutions for eigenvalues for specific matrices -> depracted, getting roots of characteristic polynomial works well.
 - [X] Code in which `Bij` parameters go into Hamiltonian, depending on symmetry.
   - [X] please double-check my new implementation with www2.cpfs.mpg.de/~rotter/homepage_mcphase/manual/node133.html webpage (corrected, see commit history)
 - [X] Run calculations for various symmetries and check what is the highes J for which the calculations runs fast (let's say up to 10 seconds).

@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{graphicx}
+\usepackage[bookmarks=true,															
+bookmarksnumbered=true,
+colorlinks=true,
+urlcolor=blue,
+linkcolor=blue,
+citecolor=blue]{hyperref}
+
+
+\newcommand*{\hham}{\mathcal{H}}
+
+\newtheorem{definition}{Definition}
+\newtheorem{problem}{Problem}
+
+\begin{document}
+	
+\section{Motivation}
+In a project of finding analytical solutions to the problem of energy levels of electron filled orbital in the crystal field, we construct a Hamiltonian, with certain symmetries originating from the symmetry of the crystal.
+
+With ideas of quantum mechanics the Hamiltonian can be represented as a matrix $\hham \in \mathbb{C}^n_n$, where n denotes the dimensionality of the problem.
+The eigenvalues of $\hham$ correspond to the energy levels, for which we desire to have analytical solutions.
+Physical symmetries of the problem will imply certain symmetries of $\hham$ matrix.
+For example, see the following matrix corresponds to energy levels of $J=2$ orbital in an $222$ point group symmetry:
+\begin{center}
+\resizebox{0.98\linewidth}{!}{%
+\begin{math}
+	\label{Hcef}
+	\hham_1 = 
+	\left[
+	\begin{matrix}
+		6 B_{20} + 12 B_{40} & 0 & \sqrt{6} B_{22} + 3 \sqrt{6} B_{42} & 0 & 12 B_{44}\\
+		0 & - 3 B_{20} - 48 B_{40} & 0 & 3 B_{22} - 12 B_{42} & 0\\
+		\sqrt{6} B_{22} + 3 \sqrt{6} B_{42} & 0 & - 6 B_{20} + 72 B_{40} & 0 & \sqrt{6} B_{22} + 3 \sqrt{6} B_{42}\\
+		0 & 3 B_{22} - 12 B_{42} & 0 & - 3 B_{20} - 48 B_{40} & 0\\
+		12 B_{44} & 0 & \sqrt{6} B_{22} + 3 \sqrt{6} B_{42} & 0 & 6 B_{20} + 12 B_{40}
+	\end{matrix}
+	\right],
+\end{math}
+}
+\end{center}
+$B_{ij} \in \mathbb{R}$.
+
+As a fundamental postulate of quantum mechanics $\hham$ is hermitian.
+In many cases some diagonals of the $\hham$ will contain 0.
+In addition, some matrices, as the one in the example, are \textit{persymmetric}.
+
+Finding the eigenvalues of $\hham$ corresponds to finding roots of its characteristic polynomial,  $p_\lambda(\hham) = det(\hham -\lambda \mathbb{I})$.
+Analytical formulas of polynomial roots exist only for irreducible polynomials of degree three, as Cardano formulas.
+Given the symmetry of the Hamiltonian, even though $p_\lambda(\hham)$ is mostly of degree higher than three, it can be reduced to a form containing polynomials of degree 3 or lower.
+
+\section{Introduction}
+\begin{definition}[Persymmetric matrix]
+Following \href{https://en.wikipedia.org/wiki/Persymmetric_matrix}{Wikipedia}
+
+A persymmetric matrix is a square matrix which is symmetric with respect to the northeast-to-southwest diagonal.
+
+Let $A=(a_{ij}) \in \mathbb{C}^n_n$. $A$ is persymmetric $\Leftrightarrow $  $\forall i,j, a_{ij} = a_{n-j+1, n-i+1}$.
+\end{definition}
+
+\begin{definition}[m-diagonal matrix]
+Let $A=(a_{ij}) \in \mathbb{C}^n_n$. $A$ is m-diagonal $\Leftrightarrow$ m diagonals of $A$ contain nonzero elemnts.
+\end{definition}
+Example, matrix \ref{Hcef} is hermitian, persymmetric, 5-diagonal.
+
+
+
+\section{Problem}
+
+\begin{problem}
+For a hermitian, persymmetric, m-diagonal matrix $A \in \mathbb{C}_n^n$, for which $m$ and $n$ the characteristic polynomial of $A$ can be reduced to polynomials of degree two?
+\end{problem}
+
+\begin{problem}
+For a hermitian, m-diagonal matrix $A \in \mathbb{C}_n^n$, for which $m$ and $n$ the characteristic polynomial of $A$ can be reduced to polynomials of degree two?
+\end{problem}
+	
+\end{document}

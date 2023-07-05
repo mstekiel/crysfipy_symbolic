@@ -3,7 +3,7 @@ import numpy as np
 
 from timeit import default_timer as timer
 
-from cefmatrices import *
+from cef_matrices import *
 
 sympy.init_printing(use_unicode=False)
 B20, B22, B2m2 = sympy.symbols('B20, B22, B2m2', real=True)
