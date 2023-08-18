@@ -10,6 +10,9 @@ Symbolic calculations in sympy aiming at determining ananlytical formulas for en
 - https://www.sciencedirect.com/science/article/pii/0022369762901920 apparently a seminal work work the 'cubic_2' case.
 
 ## TODO
+- [ ] Simplify the formulas, by looking at characterstic form, e.g. (a+b)/(a+c) `find repeating substrings`, wrapping imaginary unit into sqrt etc.
+- [ ] Determine coefficients that occur only in squared form, as the sign of those will be impossible to determine from dE.
+- [ ] Determine conditions on parameters that need to be fulfilled so that energies are real -> thi should be automatic...
 - [X] Construct the characteristic polynomial and investigate whether it can be divided by other polynomial. -> This works marvelously !!!
   - [ ] Take a look at the eigenvectors
 - [X] Take a look at the Hamiltonian for all symmetries and J up to 5 and determine what kind of blocks are present.
