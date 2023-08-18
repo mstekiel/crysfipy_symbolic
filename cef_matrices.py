@@ -1,7 +1,4 @@
 '''
-Additions by Michal Stekiel
-
-The matrices and conventions need to be cross-checked against some reliable book.
 Most important things so far:
  1. The eigenvector convention is that the first entry corresponds to highest spin, i.e.
     for the J=3/2 system |3/2> = [1,0,0,0].
