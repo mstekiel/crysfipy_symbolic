@@ -134,7 +134,7 @@ class Hamiltonian():
         characteristic polynomial and finding its roots.
         '''
         if self.eigenvalues:
-            warnings.warn(f'Eigenvalues were already calculated. Repeating calculation.', UserWarning)
+            warnings.warn(f'Eigenvalues were already calculated. Redoing calculation.', UserWarning)
             self.eigenvalues = []    
 
         for eval_formula, eval_deg in sympy.roots(self.matrix.charpoly()).items():
@@ -314,7 +314,7 @@ class CEF_Hamiltonian(Hamiltonian):
 
 
     # Methods for making the Jordan form of the Hamiltonian
-    def make_block_form(self) -> List[Hamiltonian]:
+    def make_block_form2(self) -> List[Hamiltonian]:
         '''
         Reorder the base to construct a block Hamiltonian.
 
@@ -327,8 +327,6 @@ class CEF_Hamiltonian(Hamiltonian):
         blocks
             Subhamiltonians obtained from Jordan form the block form of the Hamiltonian
         '''
-
-        from sympy import pprint
 
         blocks = []
 
@@ -363,3 +361,88 @@ class CEF_Hamiltonian(Hamiltonian):
         self.subs = blocks
 
         return blocks
+    
+    def make_block_form(self) -> List[Hamiltonian]:
+        '''
+        Reorder the base to construct a block Hamiltonian.
+
+        Updated fields
+        --------------
+        subs
+
+        Returns
+        -------
+        blocks
+            Subhamiltonians obtained from Jordan form the block form of the Hamiltonian
+        '''
+        blocks = []
+
+        # Loop to go through all indices and extract those that make the block form
+        id_to_search = list(range(self.matrix.shape[0]))
+        id_covered = set()
+        for starting_id in id_to_search:
+            if starting_id in id_covered:
+                continue
+
+            id_block = self.find_sub_indices(self.matrix, starting_id)
+            id_covered.update(id_block)
+
+            # Extract block based on `id_block`
+            it = list(id_block)
+            H_sub = Hamiltonian(
+                base = [self.base[n] for n in it],
+                matrix = self.matrix[it, :][:, it]
+            )
+            H_sub.sort_base()
+            blocks.append(H_sub)
+
+
+            # Break if all ids are covered
+            if not set(id_to_search).difference(id_covered):
+                break
+
+        self.subs = blocks
+
+        return blocks
+    
+
+    def find_sub_indices(cls, H: Matrix, starting_index: int):
+        '''
+        Find indices which allow extracting and independent block from matrix H.
+        '''
+
+        sub_indices = {starting_index}  # Starting set of indices to non-zero values of H
+        new_id_found = True
+
+        while new_id_found:
+            # print(sub_indices)
+            new_indices = set()
+            for id in sub_indices:
+                non_zero_entries = set(np.where([not x.is_zero for x in H[id, :]])[0])
+                new_indices.update(non_zero_entries)
+
+            # print('after search', new_indices)
+
+            if new_indices.difference(sub_indices):
+                new_id_found = True
+                sub_indices = new_indices.copy()
+            else:
+                new_id_found = False
+
+        return sub_indices
+    
+################################################################
+# For quick testing
+if __name__ == '__main__':
+    Jval = 4
+    lattice='cubic_1'
+    H = CEF_Hamiltonian(symmetry=lattice, Jval=Jval)
+
+    print(H)
+
+    print('start test routine')
+    print('blocks', H.make_block_form())
+    print('end test routine')
+
+    for H_sub in H.subs:
+        print(H_sub)
