@@ -1,0 +1,28 @@
+Eigenvalue and eigenvector 1
+-8*B20 + 120*B40
+Matrix([[0], [0], [1], [0], [0], [0]])
+
+Eigenvalue and eigenvector 2
+-8*B20 + 120*B40
+Matrix([[0], [0], [0], [1], [0], [0]])
+
+Eigenvalue and eigenvector 3
+-2*B20 - 180*B40
+Matrix([[0], [1], [0], [0], [0], [0]])
+
+Eigenvalue and eigenvector 4
+-2*B20 - 180*B40
+Matrix([[0], [0], [0], [0], [1], [0]])
+
+Eigenvalue and eigenvector 5
+10*B20 + 60*B40
+Matrix([[1], [0], [0], [0], [0], [0]])
+
+Eigenvalue and eigenvector 6
+10*B20 + 60*B40
+Matrix([[0], [0], [0], [0], [0], [1]])
+
+Diagonalized matrix D from H=U_dag D U
+Matrix([[-8*B20 + 120*B40, 0, 0, 0, 0, 0], [0, -8*B20 + 120*B40, 0, 0, 0, 0], [0, 0, -2*B20 - 180*B40, 0, 0, 0], [0, 0, 0, -2*B20 - 180*B40, 0, 0], [0, 0, 0, 0, 10*B20 + 60*B40, 0], [0, 0, 0, 0, 0, 10*B20 + 60*B40]])
+Rotation matrix U from H=U_dag D U
+Matrix([[0, 0, 0, 0, 1, 0], [0, 0, 1, 0, 0, 0], [1, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 1]])

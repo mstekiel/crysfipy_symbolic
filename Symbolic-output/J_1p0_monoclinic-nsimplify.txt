@@ -1,0 +1,16 @@
+Eigenvalue and eigenvector 1
+-2*B20
+Matrix([[0], [1], [0]])
+
+Eigenvalue and eigenvector 2
+B20 - sqrt(B22**2 + B2m2**2)
+Matrix([[-sqrt(B22**2 + B2m2**2)/(B22 + I*B2m2)], [0], [1]])
+
+Eigenvalue and eigenvector 3
+B20 + sqrt(B22**2 + B2m2**2)
+Matrix([[sqrt(B22**2 + B2m2**2)/(B22 + I*B2m2)], [0], [1]])
+
+Diagonalized matrix D from H=U_dag D U
+Matrix([[-2*B20, 0, 0], [0, B20 - sqrt(B22**2 + B2m2**2), 0], [0, 0, B20 + sqrt(B22**2 + B2m2**2)]])
+Rotation matrix U from H=U_dag D U
+Matrix([[0, -sqrt(B22**2 + B2m2**2)/(B22 + I*B2m2), sqrt(B22**2 + B2m2**2)/(B22 + I*B2m2)], [1, 0, 0], [0, 1, 1]])
