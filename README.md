@@ -24,6 +24,11 @@ Symbolic calculations in sympy aiming at determining ananlytical formulas for en
   - [X] please double-check my new implementation with www2.cpfs.mpg.de/~rotter/homepage_mcphase/manual/node133.html webpage (corrected, see commit history)
 - [X] Run calculations for various symmetries and check what is the highes J for which the calculations runs fast (let's say up to 10 seconds).
 - [X] See if there is influence on the simplified formulas by changing floats in cefmatrices.py into sympy.Rationals.
+=======
+## TASKS
+1. [ ] Code in which `Bij` parameters go into Hamiltonian, depending on symmetry and implement into a switch case.
+2. [ ] See if there is influence on the simplified formulas by changing floats in cefmatrices.py into sympy.Rationals and imaginary unit 'j' into sympy.I
+3. [ ] Looking at https://ptable.com/#Electrons/OxidationStates determine J fo all lanthanides.
 
 ## Ideas
 Ideas how to improve:
@@ -33,3 +38,6 @@ Ideas how to improve:
 Ideas how to analyse
 - If the system is overdefined one can assume some parameters are small, and substitute them in equations to 0. This will produce a system with reduced number of parameters which will act as a initial set of parameters that can be later fit
 - Find out about the physical boundaries on the parameters, like I think B_20>0
+=======
+1. If the system is overdefined one can assume some parameters are small, and substitute them in equations to 0. This will produce a system with reduced number of parameters which will act as a initial set of parameters that can be later fit
+2. Fin out about the physical boundaries on the parameters, like I think B_20>0
