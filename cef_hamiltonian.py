@@ -51,6 +51,8 @@ class Hamiltonian():
 
         self._translate_table = sympy_expression_mapping()
 
+    ##############################################################################33
+    # Printing and representing
     def __str__(self):
         ret = 'Hamiltonian base\n'
         ret += str(self.base) + '\n'
@@ -59,6 +61,54 @@ class Hamiltonian():
 
         return ret
     
+    def parse_latex(self):
+        '''
+        Parse the fields that need to be printed into latex.
+        '''
+        ### Latex
+        latex_begin = '''\\documentclass[8pt]{report}
+\\usepackage[a4paper,margin=0.1in,landscape]{geometry}
+\\usepackage{amsmath}
+\\usepackage{graphicx}
+
+\\begin{document}
+\\resizebox{0.98\\linewidth}{!}{%
+'''
+        latex_end = '''
+}
+\\end{document}
+'''
+
+        _eq_wrapper = lambda text: f'\\begin{{math}}\n{text}\n\\end{{math}}'
+        latex = sympy.printing.latex
+
+        ret_latex = latex_begin
+        ret_latex += _eq_wrapper(latex(self.matrix))
+        ret_latex += latex_end    
+
+        return ret_latex
+    
+
+    def save_latex(self, latex_filename: str):
+        '''
+        Save the Hamiltonian, its subspaces and eigenvectors in latex document
+        '''
+
+        ret_latex = self.parse_latex()
+        with open(latex_filename, 'w') as ff:
+            ff.write(ret_latex)
+
+        return
+
+    def _eq_wrapper(text):
+        ret = f'\\begin{{math}}\n{text}\n\\end{{math}}'
+        # if resizebox:
+        #     ret = '\\resizebox{0.98\\linewidth}{!}{%\n'+ret+'\n}'
+
+        return ret
+
+    ##############################################################################
+    # Numerical evaluation
     def _evaluate_str(self, formula: str, symbol_values: Dict[str, float]) -> float:
         '''
         Helper function to evaluate the numerical value 
@@ -128,6 +178,8 @@ class Hamiltonian():
 
         return res
     
+    ##############################################################################
+    # Diagonalization
     def determine_eigenvalues(self):
         '''
         Determine the eigenvalues of the Hamiltonian by constructing the
@@ -165,6 +217,8 @@ class Hamiltonian():
 
         return self.eigenvectors
 
+    ##############################################################################
+    # Ordering the base
     def sort_base(self):
         '''
         Sort the base of the Hamiltonian according to the numerical representation
@@ -248,6 +302,9 @@ class CEF_Hamiltonian(Hamiltonian):
 
         # Symmetry allowed Bnm according to McPhase manual
         # https://www2.cpfs.mpg.de/~rotter/homepage_mcphase/manual/node133.html
+        # TODO: this needs to be wrapped in to separate function, see self.H_from_point_group for implementation details
+        # When done replace with:
+        # matrix_representation = self.H_from_point_group(symmetry)
         matrix_representation = sympy.Matrix({
         'monoclinic':
             B20*O_20(Jval) + B22*O_22(Jval) + B2m2*O_2m2(Jval) + \
@@ -291,6 +348,24 @@ class CEF_Hamiltonian(Hamiltonian):
         # Other class specific fields
         self.subs = []
 
+    def H_from_point_group(self, point_group_name: str) -> sympy.Matrix:
+        '''
+        Construct Hamiltonian matrix based on the point group symbol.
+
+        Parameters:
+        -----------
+        point_group_name
+            String representing the point group in lattice, Schoenflies, Hermann-Maguire notation.
+
+        Returns:
+        --------
+            Matrix representation of the Hamiltonian
+        '''
+        # TODO
+        return
+
+    ##################################################################################
+    # Diagonalization
     def determine_eigenvalues(self, from_blocks: bool=True):
         if not from_blocks:
             return super().determine_eigenvalues()
@@ -311,57 +386,26 @@ class CEF_Hamiltonian(Hamiltonian):
         self.eigenvalues = [(ev, deg) for ev,deg in eigenvalues_dict.items()]
 
         return self.eigenvalues
-
-
-    # Methods for making the Jordan form of the Hamiltonian
-    def make_block_form2(self) -> List[Hamiltonian]:
-        '''
-        Reorder the base to construct a block Hamiltonian.
-
-        Updated fields
-        --------------
-        subs
-
-        Returns
-        -------
-        blocks
-            Subhamiltonians obtained from Jordan form the block form of the Hamiltonian
-        '''
-
-        blocks = []
-
-        H_red = deepcopy(self)
-        # H_red = deepcopy(self.original)
-        col = 0
-        while col < len(self.base):
-            # Find entries in a row that are non zero and reorder
-            non_zero_entries = list(np.where([not x.is_zero for x in H_red.matrix[0, :]])[0])
-            zero_entries = list(np.where([x.is_zero for x in H_red.matrix[0, :]])[0])
-            new_order = non_zero_entries + zero_entries
-            sub_rank = len(non_zero_entries)
-
-            H_red.reorder_base(new_order)
-
-            # Extract sub Hamiltonian
-            H_sub = Hamiltonian(
-                base = H_red.base[:sub_rank],
-                matrix = H_red.matrix[:sub_rank, :sub_rank]
-            )
-            H_sub.sort_base()
-            blocks.append(H_sub)
-
-            # Reduce the Hamiltonian for the next iteration
-            H_red = Hamiltonian(
-                base = H_red.base[sub_rank:],
-                matrix = H_red.matrix[sub_rank:, sub_rank:]
-            )
-
-            col += sub_rank
-
-        self.subs = blocks
-
-        return blocks
     
+    def determine_eigenvectors(self, from_blocks: bool=True):
+        if not from_blocks:
+            return super().determine_eigenvectors()
+        
+        if not self.subs:
+            self.make_block_form()
+
+        # This approach looses information about the subspace origin
+        # and does not make eigenvectors from complete Hamiltonian 
+        # Hilbert space
+        self.eigenvalues = []
+        for Hsub in self.subs:
+            Hsub.determine_eigenvectors()
+            self.eigenvalues.append(Hsub.eigenvectors)
+
+        return self.eigenvalues
+
+
+    # Methods for making the Jordan form of the Hamiltonian    
     def make_block_form(self) -> List[Hamiltonian]:
         '''
         Reorder the base to construct a block Hamiltonian.
@@ -375,20 +419,31 @@ class CEF_Hamiltonian(Hamiltonian):
         blocks
             Subhamiltonians obtained from Jordan form the block form of the Hamiltonian
         '''
+
+        # Loop through all rows, find non-zero elements in each,
+        # see what subspaces they make by grouping indices which
+        # construct the subspace
+        blocks_ids = []
+        for row in range(self.matrix.shape[0]):
+            id_non_zero_entries = set(np.where([not x.is_zero for x in self.matrix[row, :]])[0])
+
+            # Find block which makes a subspace with current row entries
+            make_new_block = True
+            for block_ids in blocks_ids:
+                if id_non_zero_entries.intersection(block_ids):
+                    block_ids.update(id_non_zero_entries)
+                    make_new_block = False
+                    break
+
+            # If the new entries don't fit in previous blocks
+            # make a new one
+            if make_new_block:
+                blocks_ids.append(id_non_zero_entries)
+
+        # Extract blocks
         blocks = []
-
-        # Loop to go through all indices and extract those that make the block form
-        id_to_search = list(range(self.matrix.shape[0]))
-        id_covered = set()
-        for starting_id in id_to_search:
-            if starting_id in id_covered:
-                continue
-
-            id_block = self.find_sub_indices(self.matrix, starting_id)
-            id_covered.update(id_block)
-
-            # Extract block based on `id_block`
-            it = list(id_block)
+        for block_ids in blocks_ids:
+            it = list(block_ids)
             H_sub = Hamiltonian(
                 base = [self.base[n] for n in it],
                 matrix = self.matrix[it, :][:, it]
@@ -396,40 +451,54 @@ class CEF_Hamiltonian(Hamiltonian):
             H_sub.sort_base()
             blocks.append(H_sub)
 
-
-            # Break if all ids are covered
-            if not set(id_to_search).difference(id_covered):
-                break
-
+        # Save and return the results
         self.subs = blocks
-
         return blocks
     
+    ############################################################################
+    # Printing
 
-    def find_sub_indices(cls, H: Matrix, starting_index: int):
+    def parse_latex(self):
         '''
-        Find indices which allow extracting and independent block from matrix H.
+        Parse the fields that need to be printed into latex.
         '''
+        ### Latex
+        latex_begin = '''\\documentclass[8pt]{report}
+\\usepackage[a4paper,margin=0.1in,landscape]{geometry}
+\\usepackage{amsmath}
+\\usepackage{graphicx}
 
-        sub_indices = {starting_index}  # Starting set of indices to non-zero values of H
-        new_id_found = True
+\\begin{document}
+'''
+        latex_end = '''
 
-        while new_id_found:
-            # print(sub_indices)
-            new_indices = set()
-            for id in sub_indices:
-                non_zero_entries = set(np.where([not x.is_zero for x in H[id, :]])[0])
-                new_indices.update(non_zero_entries)
+\\end{document}
+'''
 
-            # print('after search', new_indices)
+        _eq_wrapper = lambda text: f'\\begin{{math}}\n{text}\n\\end{{math}}'
+        latex = sympy.printing.latex
 
-            if new_indices.difference(sub_indices):
-                new_id_found = True
-                sub_indices = new_indices.copy()
-            else:
-                new_id_found = False
+        ret_latex = latex_begin
+        ret_latex += _eq_wrapper(latex(self.matrix))
 
-        return sub_indices
+        for n_sub, Hsub in enumerate(self.subs):
+            ret_latex += f'\n\n'
+            ret_latex += f'Subspace {n_sub+1}\n\n'
+            ret_latex += 'Base: ' + ', '.join([f'$\\vert {x} \\rangle$' for x in Hsub.base]) + '\n\n'
+            ret_latex += _eq_wrapper(f'H_{{{n_sub+1}}} = \n' + latex(Hsub.matrix))
+            ret_latex += f'\n\n'
+
+
+            Hsub.determine_eigenvalues()
+            for n_ev,ev in enumerate(Hsub.eigenvalues):
+                ev_expr, ev_deg = ev
+                ret_latex += _eq_wrapper(f'\\lambda_{{{n_sub+1},{n_ev+1}}}^{{({ev_deg})}} = \n' + latex(ev_expr))
+                ret_latex += f'\n\n'
+
+
+        ret_latex += latex_end
+
+        return ret_latex
     
 ################################################################
 # For quick testing
@@ -437,12 +506,6 @@ if __name__ == '__main__':
     Jval = 4
     lattice='cubic_1'
     H = CEF_Hamiltonian(symmetry=lattice, Jval=Jval)
+    H.make_block_form()
 
-    print(H)
-
-    print('start test routine')
-    print('blocks', H.make_block_form())
-    print('end test routine')
-
-    for H_sub in H.subs:
-        print(H_sub)
+    H.save_latex('./Symbolic-output/test.tex')
