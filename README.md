@@ -10,11 +10,14 @@ Symbolic calculations in sympy aiming at determining ananlytical formulas for en
 - https://www.sciencedirect.com/science/article/pii/0022369762901920 apparently a seminal work work the 'cubic_2' case.
 
 ## TODO
+- [ ] Implement yaml dumper.
+- [ ] Proper architecture of the dependencies. 
+- [ ] Mapping between lattice-Schoenflies-HermannMaguaine noteation for point group symmetry.
 - [ ] Simplify the formulas, by looking at characterstic form, e.g. (a+b)/(a+c) `find repeating substrings`, wrapping imaginary unit into sqrt etc.
-- [ ] Determine coefficients that occur only in squared form, as the sign of those will be impossible to determine from dE.
-- [ ] Determine conditions on parameters that need to be fulfilled so that energies are real -> thi should be automatic...
+- [ ] Determine coefficients that occur only in squared form, as the sign of those will be impossible to determine from dE. However, there are some cases that also with linear terms the sign can be ambigous due to quantum phase.
+- [ ] Determine conditions on parameters that need to be fulfilled so that energies are real -> this should be automatic...
 - [X] Construct the characteristic polynomial and investigate whether it can be divided by other polynomial. -> This works marvelously !!!
-  - [ ] Take a look at the eigenvectors
+  - [X] Take a look at the eigenvectors
 - [X] Take a look at the Hamiltonian for all symmetries and J up to 5 and determine what kind of blocks are present.
 - [X] Based on how the blocks look like, implement the solutions for eigenvalues for specific matrices -> depracted, getting roots of characteristic polynomial works well.
 - [X] Code in which `Bij` parameters go into Hamiltonian, depending on symmetry.
