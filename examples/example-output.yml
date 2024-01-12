@@ -1,0 +1,33 @@
+# md
+
+# base: should be list of ints or strings?
+
+base : []
+hamiltonian:
+    - row1
+    - row2
+    - ...
+subspaces:
+    0:
+        base: [-2, 2]
+        hamiltonian:
+            - 'row1'
+            - 'row2'
+        eigenvalues:
+            - 'eval1'
+            - 'eval2'
+        eigenvectors:
+            - ['u11', 'u12']
+            - ['u21', 'u22']
+    1:
+        ...
+eigenvalues:
+    - &id_eval_0
+        sub_origin: int
+        value: str
+        degeneracy: int
+eigenvectors:
+    - 
+        eigenvalue: *id_eval_0
+
+    

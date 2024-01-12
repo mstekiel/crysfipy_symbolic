@@ -1,0 +1,72 @@
+Jval=sympy.Rational(3,2)
+without sympy.Rational():
+triclinic:
+	Diagonalization time = 0.490545099999963 s
+	Simplification and saving time = 0.18536940000012692 s
+monoclinic:
+	Diagonalization time = 0.48868629999969926 s
+	Simplification and saving time = 0.18469770000001517 s
+rhombic:
+	Diagonalization time = 0.49057900000025256 s
+	Simplification and saving time = 0.18439440000020113 s
+tetragonal_1:
+	Diagonalization time = 0.019990300000245043 s
+	Simplification and saving time = 0.019550299999991694 s
+tetragonal_2:
+	Diagonalization time = 0.019909799999823008 s
+	Simplification and saving time = 0.019718900000043504 s
+trigonal_1:
+	Diagonalization time = 0.02026819999991858 s
+	Simplification and saving time = 0.01857330000029833 s
+trigonal_2:
+	Diagonalization time = 0.02039809999996578 s
+	Simplification and saving time = 0.018702200000006997 s
+hexagonal_1:
+	Diagonalization time = 0.01970240000036938 s
+	Simplification and saving time = 0.01957349999975122 s
+hexagonal_2:
+	Diagonalization time = 0.019916400000511203 s
+	Simplification and saving time = 0.019443000000137545 s
+cubic_1:
+	Diagonalization time = 0.0017812999994930578 s
+	Simplification and saving time = 0.0037703999996665516 s
+cubic_2:
+	Diagonalization time = 0.0017895999999382184 s
+	Simplification and saving time = 0.003783399999520043 s
+
+
+with sympy.Rational():
+triclinic:
+	Diagonalization time = 0.48620409999966796 s
+	Simplification and saving time = 0.18458660000032978 s
+monoclinic:
+	Diagonalization time = 0.4939196000004813 s
+	Simplification and saving time = 0.18421049999960815 s
+rhombic:
+	Diagonalization time = 0.49431950000052893 s
+	Simplification and saving time = 0.18454230000043026 s
+tetragonal_1:
+	Diagonalization time = 0.019603400000050897 s
+	Simplification and saving time = 0.0195677000001524 s
+tetragonal_2:
+	Diagonalization time = 0.020157200000539888 s
+	Simplification and saving time = 0.019533900000169524 s
+trigonal_1:
+	Diagonalization time = 0.02067689999967115 s
+	Simplification and saving time = 0.018811200000527606 s
+trigonal_2:
+	Diagonalization time = 0.020972799999981362 s
+	Simplification and saving time = 0.019245299999965937 s
+hexagonal_1:
+	Diagonalization time = 0.01969560000088677 s
+	Simplification and saving time = 0.019336500000463275 s
+hexagonal_2:
+	Diagonalization time = 0.019791900000200258 s
+	Simplification and saving time = 0.019268000000010943 s
+cubic_1:
+	Diagonalization time = 0.0019120999995720922 s
+	Simplification and saving time = 0.0037784000005558482 s
+cubic_2:
+	Diagonalization time = 0.0018686000003071968 s
+	Simplification and saving time = 0.0038543999999092193 s
+		

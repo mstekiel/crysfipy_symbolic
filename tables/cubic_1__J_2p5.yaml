@@ -1,0 +1,17 @@
+---
+base: [5/2, 3/2, 1/2, -1/2, -3/2, -5/2]
+matrix:
+  - [60*B40, 0, 0, 0, 60*sqrt(5)*B40, 0]
+  - [0, -180*B40, 0, 0, 0, 60*sqrt(5)*B40]
+  - [0, 0, 120*B40, 0, 0, 0]
+  - [0, 0, 0, 120*B40, 0, 0]
+  - [60*sqrt(5)*B40, 0, 0, 0, -180*B40, 0]
+  - [0, 60*sqrt(5)*B40, 0, 0, 0, 60*B40]
+eigenvalues:
+  eval_0:
+    formula: 120*B40
+    degeneracy: 4
+  eval_1:
+    formula: -240*B40
+    degeneracy: 2
+eigenvectors: []
