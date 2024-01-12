@@ -1,20 +1,89 @@
----
+J: 2.5
 base: [5/2, 3/2, 1/2, -1/2, -3/2, -5/2]
-matrix:
-  - [10*B20 + 60*B40, 0, 0, 0, 12*sqrt(5)*B44 - 12*sqrt(5)*I*B4m4, 0]
-  - [0, -2*B20 - 180*B40, 0, 0, 0, 12*sqrt(5)*B44 - 12*sqrt(5)*I*B4m4]
-  - [0, 0, -8*B20 + 120*B40, 0, 0, 0]
-  - [0, 0, 0, -8*B20 + 120*B40, 0, 0]
-  - [12*sqrt(5)*B44 + 12*sqrt(5)*I*B4m4, 0, 0, 0, -2*B20 - 180*B40, 0]
-  - [0, 12*sqrt(5)*B44 + 12*sqrt(5)*I*B4m4, 0, 0, 0, 10*B20 + 60*B40]
 eigenvalues:
-  eval_0:
-    formula: 4*B20 - 60*B40 - 6*sqrt(B20**2 + 40*B20*B40 + 400*B40**2 + 20*B44**2 + 20*B4m4**2)
+  0:
     degeneracy: 2
-  eval_1:
-    formula: 4*B20 - 60*B40 + 6*sqrt(B20**2 + 40*B20*B40 + 400*B40**2 + 20*B44**2 + 20*B4m4**2)
+    formula: 4*B20 - 60*B40 - 6*sqrt(B20**2 + 40*B20*B40 + 400*B40**2 + 20*B44**2
+      + 20*B4m4**2)
+    subspace_origins: [0, 1]
+  1:
     degeneracy: 2
-  eval_2:
+    formula: 4*B20 - 60*B40 + 6*sqrt(B20**2 + 40*B20*B40 + 400*B40**2 + 20*B44**2
+      + 20*B4m4**2)
+    subspace_origins: [0, 1]
+  2:
+    degeneracy: 2
     formula: -8*(B20 - 15*B40)
-    degeneracy: 2
-eigenvectors: []
+    subspace_origins: [2, 3]
+free_pars: [B40, B20, B4m4, B44]
+matrix:
+- [10*B20 + 60*B40, '0', '0', '0', 12*sqrt(5)*B44 - 12*sqrt(5)*I*B4m4, '0']
+- ['0', -2*B20 - 180*B40, '0', '0', '0', 12*sqrt(5)*B44 - 12*sqrt(5)*I*B4m4]
+- ['0', '0', -8*B20 + 120*B40, '0', '0', '0']
+- ['0', '0', '0', -8*B20 + 120*B40, '0', '0']
+- [12*sqrt(5)*B44 + 12*sqrt(5)*I*B4m4, '0', '0', '0', -2*B20 - 180*B40, '0']
+- ['0', 12*sqrt(5)*B44 + 12*sqrt(5)*I*B4m4, '0', '0', '0', 10*B20 + 60*B40]
+subspaces:
+  0:
+    base: [5/2, -3/2]
+    eigenvalues:
+      0: {degeneracy: 1, formula: 4*B20 - 60*B40 - 6*sqrt(B20**2 + 40*B20*B40 + 400*B40**2
+          + 20*B44**2 + 20*B4m4**2)}
+      1: {degeneracy: 1, formula: 4*B20 - 60*B40 + 6*sqrt(B20**2 + 40*B20*B40 + 400*B40**2
+          + 20*B44**2 + 20*B4m4**2)}
+    eigenvectors:
+      0:
+        eigenvalue_origin: 0
+        formula: [-(2*sqrt(5)*B44 - 2*sqrt(5)*I*B4m4)/(B20 + 20*B40 + sqrt(B20**2
+            + 40*B20*B40 + 400*B40**2 + 20*B44**2 + 20*B4m4**2)), '1']
+      1:
+        eigenvalue_origin: 1
+        formula: [-(2*sqrt(5)*B44 - 2*sqrt(5)*I*B4m4)/(B20 + 20*B40 - sqrt(B20**2
+            + 40*B20*B40 + 400*B40**2 + 20*B44**2 + 20*B4m4**2)), '1']
+    free_pars: [B40, B20, B4m4, B44]
+    matrix:
+    - [10*B20 + 60*B40, 12*sqrt(5)*B44 - 12*sqrt(5)*I*B4m4]
+    - [12*sqrt(5)*B44 + 12*sqrt(5)*I*B4m4, -2*B20 - 180*B40]
+  1:
+    base: [3/2, -5/2]
+    eigenvalues:
+      0: {degeneracy: 1, formula: 4*B20 - 60*B40 - 6*sqrt(B20**2 + 40*B20*B40 + 400*B40**2
+          + 20*B44**2 + 20*B4m4**2)}
+      1: {degeneracy: 1, formula: 4*B20 - 60*B40 + 6*sqrt(B20**2 + 40*B20*B40 + 400*B40**2
+          + 20*B44**2 + 20*B4m4**2)}
+    eigenvectors:
+      0:
+        eigenvalue_origin: 0
+        formula: [-(-2*sqrt(5)*B44 + 2*sqrt(5)*I*B4m4)/(B20 + 20*B40 - sqrt(B20**2
+            + 40*B20*B40 + 400*B40**2 + 20*B44**2 + 20*B4m4**2)), '1']
+      1:
+        eigenvalue_origin: 1
+        formula: [-(-2*sqrt(5)*B44 + 2*sqrt(5)*I*B4m4)/(B20 + 20*B40 + sqrt(B20**2
+            + 40*B20*B40 + 400*B40**2 + 20*B44**2 + 20*B4m4**2)), '1']
+    free_pars: [B40, B20, B4m4, B44]
+    matrix:
+    - [-2*B20 - 180*B40, 12*sqrt(5)*B44 - 12*sqrt(5)*I*B4m4]
+    - [12*sqrt(5)*B44 + 12*sqrt(5)*I*B4m4, 10*B20 + 60*B40]
+  2:
+    base: [1/2]
+    eigenvalues:
+      0: {degeneracy: 1, formula: -8*(B20 - 15*B40)}
+    eigenvectors:
+      0:
+        eigenvalue_origin: 0
+        formula: ['1']
+    free_pars: [B40, B20]
+    matrix:
+    - [-8*B20 + 120*B40]
+  3:
+    base: [-1/2]
+    eigenvalues:
+      0: {degeneracy: 1, formula: -8*(B20 - 15*B40)}
+    eigenvectors:
+      0:
+        eigenvalue_origin: 0
+        formula: ['1']
+    free_pars: [B40, B20]
+    matrix:
+    - [-8*B20 + 120*B40]
+symmetry: ('4', 'C4', 'tetragonal_1', 3)

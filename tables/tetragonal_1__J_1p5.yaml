@@ -1,0 +1,63 @@
+J: 1.5
+base: [3/2, 1/2, -1/2, -3/2]
+eigenvalues:
+  0:
+    degeneracy: 2
+    formula: 3*B20
+    subspace_origins: [0, 3]
+  1:
+    degeneracy: 2
+    formula: -3*B20
+    subspace_origins: [1, 2]
+free_pars: [B20]
+matrix:
+- [3*B20, '0', '0', '0']
+- ['0', -3*B20, '0', '0']
+- ['0', '0', -3*B20, '0']
+- ['0', '0', '0', 3*B20]
+subspaces:
+  0:
+    base: [3/2]
+    eigenvalues:
+      0: {degeneracy: 1, formula: 3*B20}
+    eigenvectors:
+      0:
+        eigenvalue_origin: 0
+        formula: ['1']
+    free_pars: [B20]
+    matrix:
+    - [3*B20]
+  1:
+    base: [1/2]
+    eigenvalues:
+      0: {degeneracy: 1, formula: -3*B20}
+    eigenvectors:
+      0:
+        eigenvalue_origin: 0
+        formula: ['1']
+    free_pars: [B20]
+    matrix:
+    - [-3*B20]
+  2:
+    base: [-1/2]
+    eigenvalues:
+      0: {degeneracy: 1, formula: -3*B20}
+    eigenvectors:
+      0:
+        eigenvalue_origin: 0
+        formula: ['1']
+    free_pars: [B20]
+    matrix:
+    - [-3*B20]
+  3:
+    base: [-3/2]
+    eigenvalues:
+      0: {degeneracy: 1, formula: 3*B20}
+    eigenvectors:
+      0:
+        eigenvalue_origin: 0
+        formula: ['1']
+    free_pars: [B20]
+    matrix:
+    - [3*B20]
+symmetry: ('4', 'C4', 'tetragonal_1', 3)

@@ -1,0 +1,77 @@
+J: 2.0
+base: ['2', '1', '0', '-1', '-2']
+eigenvalues:
+  0:
+    degeneracy: 1
+    formula: 6*B20 + 12*B40 - 12*sqrt(B44**2 + B4m4**2)
+    subspace_origins: [0]
+  1:
+    degeneracy: 1
+    formula: 6*B20 + 12*B40 + 12*sqrt(B44**2 + B4m4**2)
+    subspace_origins: [0]
+  2:
+    degeneracy: 2
+    formula: -3*(B20 + 16*B40)
+    subspace_origins: [1, 3]
+  3:
+    degeneracy: 1
+    formula: -6*(B20 - 12*B40)
+    subspace_origins: [2]
+free_pars: [B44, B40, B4m4, B20]
+matrix:
+- [6*B20 + 12*B40, '0', '0', '0', 12*B44 - 12*I*B4m4]
+- ['0', -3*B20 - 48*B40, '0', '0', '0']
+- ['0', '0', -6*B20 + 72*B40, '0', '0']
+- ['0', '0', '0', -3*B20 - 48*B40, '0']
+- [12*B44 + 12*I*B4m4, '0', '0', '0', 6*B20 + 12*B40]
+subspaces:
+  0:
+    base: ['2', '-2']
+    eigenvalues:
+      0: {degeneracy: 1, formula: 6*B20 + 12*B40 - 12*sqrt(B44**2 + B4m4**2)}
+      1: {degeneracy: 1, formula: 6*B20 + 12*B40 + 12*sqrt(B44**2 + B4m4**2)}
+    eigenvectors:
+      0:
+        eigenvalue_origin: 0
+        formula: [-(B44 - I*B4m4)/sqrt(B44**2 + B4m4**2), '1']
+      1:
+        eigenvalue_origin: 1
+        formula: [-(-B44 + I*B4m4)/sqrt(B44**2 + B4m4**2), '1']
+    free_pars: [B44, B40, B4m4, B20]
+    matrix:
+    - [6*B20 + 12*B40, 12*B44 - 12*I*B4m4]
+    - [12*B44 + 12*I*B4m4, 6*B20 + 12*B40]
+  1:
+    base: ['1']
+    eigenvalues:
+      0: {degeneracy: 1, formula: -3*(B20 + 16*B40)}
+    eigenvectors:
+      0:
+        eigenvalue_origin: 0
+        formula: ['1']
+    free_pars: [B20, B40]
+    matrix:
+    - [-3*B20 - 48*B40]
+  2:
+    base: ['0']
+    eigenvalues:
+      0: {degeneracy: 1, formula: -6*(B20 - 12*B40)}
+    eigenvectors:
+      0:
+        eigenvalue_origin: 0
+        formula: ['1']
+    free_pars: [B20, B40]
+    matrix:
+    - [-6*B20 + 72*B40]
+  3:
+    base: ['-1']
+    eigenvalues:
+      0: {degeneracy: 1, formula: -3*(B20 + 16*B40)}
+    eigenvectors:
+      0:
+        eigenvalue_origin: 0
+        formula: ['1']
+    free_pars: [B20, B40]
+    matrix:
+    - [-3*B20 - 48*B40]
+symmetry: ('4', 'C4', 'tetragonal_1', 3)

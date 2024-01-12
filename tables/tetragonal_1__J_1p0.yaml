@@ -1,0 +1,51 @@
+J: 1.0
+base: ['1', '0', '-1']
+eigenvalues:
+  0:
+    degeneracy: 2
+    formula: B20
+    subspace_origins: [0, 2]
+  1:
+    degeneracy: 1
+    formula: -2*B20
+    subspace_origins: [1]
+free_pars: [B20]
+matrix:
+- [B20, '0', '0']
+- ['0', -2*B20, '0']
+- ['0', '0', B20]
+subspaces:
+  0:
+    base: ['1']
+    eigenvalues:
+      0: {degeneracy: 1, formula: B20}
+    eigenvectors:
+      0:
+        eigenvalue_origin: 0
+        formula: ['1']
+    free_pars: [B20]
+    matrix:
+    - [B20]
+  1:
+    base: ['0']
+    eigenvalues:
+      0: {degeneracy: 1, formula: -2*B20}
+    eigenvectors:
+      0:
+        eigenvalue_origin: 0
+        formula: ['1']
+    free_pars: [B20]
+    matrix:
+    - [-2*B20]
+  2:
+    base: ['-1']
+    eigenvalues:
+      0: {degeneracy: 1, formula: B20}
+    eigenvectors:
+      0:
+        eigenvalue_origin: 0
+        formula: ['1']
+    free_pars: [B20]
+    matrix:
+    - [B20]
+symmetry: ('4', 'C4', 'tetragonal_1', 3)

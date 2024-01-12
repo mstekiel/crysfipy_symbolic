@@ -2,11 +2,11 @@ import sys
 PATH = 'C:/Users/Stekiel/Documents/GitHub/crysfipy_symbolic'
 sys.path.append(PATH)
 
-from crysfipy_symbolic.cefhamiltonian import CEF_Hamiltonian
-from crysfipy_symbolic.data_containers import point_group_synonyms
+from crysfipy_symbolic import CEF_Hamiltonian
+from crysfipy_symbolic import point_group_synonyms
 
-Jval = 2.0
-lattice_type = 'cubic_1'
+Jval = 1.5
+lattice_type = 'tetragonal_1'
 
 print(f'Constructing tables for J={Jval}, {lattice_type}')
 

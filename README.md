@@ -1,4 +1,4 @@
-# crysfipy-symbolic
+# crysfipy_-_symbolic
 
 Symbolic calculations in sympy aiming at determining ananlytical formulas for energy levels of the f-electron in different symmetry environments.
 
