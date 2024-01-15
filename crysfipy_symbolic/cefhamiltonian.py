@@ -69,7 +69,7 @@ class CEF_Hamiltonian(Hamiltonian):
         # Other class specific fields
         self.subs = []
 
-    def H_from_point_group(self, point_group_name: str, Jval: float) -> sympy.Matrix:
+    def H_from_point_group(self, point_group_name: str, Jval: float) -> Matrix:
         '''
         Construct Hamiltonian matrix based on the point group symbol.
 
