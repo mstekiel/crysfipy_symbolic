@@ -42,18 +42,26 @@ class CEF_Hamiltonian(Hamiltonian):
         List of eigenvectors with formula, index of eigenvalue from which it originates, and subspace origin index.
     '''
     def __init__(self, symmetry: str, Jval: float):
-        self.Jval = Jval
+        '''
+        Construct crystal field Hamiltonian with `Jval` quantum number in an environment with specific `symmetry`.
+        '''
+
+        if not np.isclose( 2*Jval, int(2*Jval)):
+            raise ValueError(f'J={Jval} is not half-integer.')
+
+        self.Jval = float(Jval)
+
         # Prepare a list of kets that form the basis
-        if Jval%1==0:
-            freeionkets = [f'{int(x)}' for x in np.linspace(Jval,-Jval,int(2*Jval+1))]
-        elif Jval%1==0.5:
+        if int(2*self.Jval) % 2:
             freeionkets = [f'{int(2*x):d}/2' for x in np.linspace(Jval,-Jval,int(2*Jval+1))]
+        else:
+            freeionkets = [f'{int(x)}' for x in np.linspace(Jval,-Jval,int(2*Jval+1))]
 
 
         # Symmetry allowed Bnm according to McPhase manual
         # https://www2.cpfs.mpg.de/~rotter/homepage_mcphase/manual/node133.html
         matrix_representation = self.H_from_point_group(symmetry, Jval)
-        self.symmetry =  str(point_group_synonyms(symmetry)[0]) # + '\t(Hermann-Mauguin, Schoenflies, lattice names, id)'
+        self.symmetry =  point_group_synonyms(symmetry)[0] # take the first suggested synonym
 
         # Constructor of the parent class
         super().__init__(base=freeionkets, matrix=matrix_representation)
@@ -156,7 +164,8 @@ class CEF_Hamiltonian(Hamiltonian):
         '''
         Updated fields
         --------------
-        subs
+
+        eigenvectors
         '''
         if not from_blocks:
             return super().determine_eigenvectors()
@@ -167,15 +176,20 @@ class CEF_Hamiltonian(Hamiltonian):
         if not self.eigenvalues:
             self.determine_eigenvalues()
 
-        # This approach looses information about the subspace origin
-        # and does not make eigenvectors from complete Hamiltonian 
-        # Hilbert space
         self.eigenvectors = []
-        for Hsub in self.subs:
-            Hsub.determine_eigenvectors()
-            self.eigenvectors.append(Hsub.eigenvectors)
+        for subspace_origin, Hsub in enumerate(self.subs):
+            subspace_base = Hsub.base
+            for subspace_eigenvector, eigenvalue_origin_in_subspace in Hsub.determine_eigenvectors():
+                # Extend the base
+                eigenvector = sympy.matrices.zeros(1, len(self.base))
+                for vi, bi in zip(subspace_eigenvector, subspace_base):
+                    eigenvector[self.base.index(bi)] = vi
 
-        #List of eigenvectors with formula, index of eigenvalue from which it originates, and subspace origin index, 
+                # Locate the index of the eigenvalue in whole Hamiltonian
+                eigenvalue = Hsub.eigenvalues[eigenvalue_origin_in_subspace][0]
+                eigenvalue_origin = [eval[0] for eval in self.eigenvalues].index(eigenvalue)
+
+                self.eigenvectors.append( (eigenvector, eigenvalue_origin, subspace_origin) )
 
         return self.eigenvectors
 
@@ -242,7 +256,7 @@ class CEF_Hamiltonian(Hamiltonian):
 
         H_dict['base'] = self.base
         H_dict['J'] = self.Jval
-        H_dict['symmetry'] = self.symmetry
+        H_dict['symmetry'] = str(self.symmetry)
         H_dict['free_pars'] = [str(x) for x in self.matrix.free_symbols]
 
         # Matrix -> 2x2 list
@@ -257,11 +271,11 @@ class CEF_Hamiltonian(Hamiltonian):
         for n, (eval, deg, subspace_origins) in enumerate(self.eigenvalues):
             H_dict['eigenvalues'][n] = dict(formula=str(eval), degeneracy=deg, subspace_origins=subspace_origins)
 
-        # Eigenvectors -> ???
-        # H_dict['eigenvectors'] = {}
-        # for n, (evec, eval_origin) in enumerate(self.eigenvectors):
-        #     eigenvector = [str(u) for u in evec]
-        #     H_dict['eigenvectors'][n] = dict(formula=eigenvector, eval_origin=eval_origin)
+        # Eigenvectors ->  (evec, eigenvalue_origin, subspace_origin) 
+        H_dict['eigenvectors'] = {}
+        for n, (evec, eigenvalue_origin, subspace_origin) in enumerate(self.eigenvectors):
+            eigenvector = [str(u) for u in evec]
+            H_dict['eigenvectors'][n] = dict(formula=eigenvector, subspace_origin=subspace_origin, eigenvalue_origin=eigenvalue_origin)
 
         H_dict['subspaces'] = {}
         for n, Hsub in enumerate(self.subs):
@@ -269,39 +283,6 @@ class CEF_Hamiltonian(Hamiltonian):
 
         return H_dict
 
-    # def to_yaml(self):
-    #     '''
-    #     Parse the fields to YAML
-    #     '''
-
-    #     ret = '---\n'
-
-    #     # Base
-    #     ret += 'base: [' + ', '.join(self.base) + ']\n'
-
-    #     # Hamiltonian
-    #     ret += 'hamiltonian:\n'
-    #     hamiltonian_str = str(self.matrix)
-    #     it_i = hamiltonian_str.find('[[') + 2
-    #     it_f = hamiltonian_str.find(']]')
-    #     for row in hamiltonian_str[it_i: it_f].split('], ['):
-    #         ret += '  - [' + str(row) + ']\n'
-
-    #     # Blocks
-    #     for Hsub in self.subs:
-    #         ret += '\n'
-    #         ret += Hsub.to_yaml()
-
-    #     # # Eigenvalues
-    #     # ret += 'eigenvalues:'
-    #     # if self.eigenvalues:
-    #     #     ret += '\n'
-    #     #     for eval in self.eigenvalues:
-    #     #         ret += '  - ' + str(eval) + '\n'
-    #     # else:
-    #     #     ret += ' []'
-
-    #     return ret
 
     def to_latex_doc(self):
         '''
@@ -349,30 +330,9 @@ class CEF_Hamiltonian(Hamiltonian):
 # For quick testing
 if __name__ == '__main__':
     Jval = 2.5
-    symmetry = 'C2v'
+    symmetry = '4mm'
 
     H = CEF_Hamiltonian(symmetry=symmetry, Jval=Jval)
-    # print(H)
-    # print(H.to_yaml_auto())
-    # print(H.to_yaml())
-
-    H.make_block_form()
-    # print(H.to_yaml_auto())
-    # print(H.to_yaml())
-
-    evals = H.determine_eigenvalues()
-    print(H.eigenvalues)
-    print(H.to_yaml_auto())
-    # print(H.to_yaml())
-
-    # evals = H.determine_eigenvectors()
-    # print(H.to_yaml_auto())
-    # print(H.to_yaml())
-
-    # print('Loaded:')
-    # data = yaml.load(H.to_yaml(), Loader=yaml.Loader)
-    # for t in data:
-    #     print(t, data[t])
-
-    # print('Dicted:')
-    # print(H.to_dict())
+    H.determine_eigenvectors()
+    print(H.eigenvectors)
+    sympy.matrices.zeros(*H.eigenvectors[0][0].shape)
