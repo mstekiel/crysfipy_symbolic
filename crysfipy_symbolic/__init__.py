@@ -2,5 +2,5 @@
 CrysFiPy symbolic calculations of CEF Hamiltonian
 '''
 
-from .cefhamiltonian import CEF_Hamiltonian
-from .data_containers import *
+from crysfipy_symbolic.cefhamiltonian import CEF_Hamiltonian
+from crysfipy_symbolic.data_containers import *
