@@ -4,7 +4,7 @@ import warnings
 import yaml
 
 # Typesetting
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Any
 from sympy import Expr as expr
 
 # Sympy
@@ -67,7 +67,7 @@ class Hamiltonian():
 
         return ret
     
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, Any]:
         '''
         Represent as dictionary
         '''
@@ -100,7 +100,7 @@ class Hamiltonian():
 
         return H_dict
     
-    def to_yaml(self):
+    def to_yaml(self) -> str:
         '''
         Convert the Hamiltonian to YAML format.
 
@@ -108,7 +108,7 @@ class Hamiltonian():
         '''
         return yaml.dump(self.to_dict(), default_flow_style=None)
        
-    def to_latex_doc(self):
+    def to_latex_doc(self) -> str:
         '''
         Parse the fields that need to be printed into latex.
         '''
@@ -145,9 +145,7 @@ class Hamiltonian():
         with open(latex_filename, 'w') as ff:
             ff.write(ret_latex)
 
-        return
-
-    def _eq_wrapper(text):
+    def _eq_wrapper(text: str) -> str:
         ret = f'\\begin{{math}}\n{text}\n\\end{{math}}'
         # if resizebox:
         #     ret = '\\resizebox{0.98\\linewidth}{!}{%\n'+ret+'\n}'
@@ -227,7 +225,7 @@ class Hamiltonian():
     
     ##############################################################################
     # Diagonalization
-    def determine_eigenvalues(self):
+    def determine_eigenvalues(self) -> List[Tuple[expr, int]]:
         '''
         Determine the eigenvalues of the Hamiltonian by constructing the
         characteristic polynomial and finding its roots.

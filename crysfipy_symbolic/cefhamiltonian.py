@@ -5,7 +5,7 @@ import warnings
 import yaml
 
 # Typesetting
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Any
 from sympy import Expr as expr
 
 # Sympy
@@ -136,7 +136,7 @@ class CEF_Hamiltonian(Hamiltonian):
 
     ##################################################################################
     # Diagonalization
-    def determine_eigenvalues(self, from_blocks: bool=True):
+    def determine_eigenvalues(self, from_blocks: bool=True) -> List[Tuple[expr, int, int]]:
         '''
         Determine eigenvalues of the Hamlitonian
         '''
@@ -247,7 +247,7 @@ class CEF_Hamiltonian(Hamiltonian):
     ############################################################################
     # Printing
 
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, Any]:
         '''
         Represent as dictionary
         '''
@@ -284,7 +284,7 @@ class CEF_Hamiltonian(Hamiltonian):
         return H_dict
 
 
-    def to_latex_doc(self):
+    def to_latex_doc(self) -> str:
         '''
         Parse the fields that need to be printed into latex.
         '''
