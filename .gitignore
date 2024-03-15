@@ -3,8 +3,6 @@ __pycache__/
 *.py[cod]
 
 # Ignore updating all output for now
-Latex/
-Symbolic-output/
-
-# Dirty tests
-CEF-tests*
+archive/
+latex/
+tables/

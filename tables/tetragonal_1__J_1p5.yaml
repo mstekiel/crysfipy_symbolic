@@ -9,6 +9,23 @@ eigenvalues:
     degeneracy: 2
     formula: -3*B20
     subspace_origins: [1, 2]
+eigenvectors:
+  0:
+    eigenvalue_origin: 0
+    formula: ['1', '0', '0', '0']
+    subspace_origin: 0
+  1:
+    eigenvalue_origin: 1
+    formula: ['0', '1', '0', '0']
+    subspace_origin: 1
+  2:
+    eigenvalue_origin: 1
+    formula: ['0', '0', '1', '0']
+    subspace_origin: 2
+  3:
+    eigenvalue_origin: 0
+    formula: ['0', '0', '0', '1']
+    subspace_origin: 3
 free_pars: [B20]
 matrix:
 - [3*B20, '0', '0', '0']

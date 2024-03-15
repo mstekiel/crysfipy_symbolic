@@ -15,7 +15,36 @@ eigenvalues:
     degeneracy: 2
     formula: -8*(B20 - 15*B40)
     subspace_origins: [2, 3]
-free_pars: [B40, B20, B4m4, B44]
+eigenvectors:
+  0:
+    eigenvalue_origin: 0
+    formula: [-(2*sqrt(5)*B44 - 2*sqrt(5)*I*B4m4)/(B20 + 20*B40 + sqrt(B20**2 + 40*B20*B40
+        + 400*B40**2 + 20*B44**2 + 20*B4m4**2)), '0', '0', '0', '1', '0']
+    subspace_origin: 0
+  1:
+    eigenvalue_origin: 1
+    formula: [-(2*sqrt(5)*B44 - 2*sqrt(5)*I*B4m4)/(B20 + 20*B40 - sqrt(B20**2 + 40*B20*B40
+        + 400*B40**2 + 20*B44**2 + 20*B4m4**2)), '0', '0', '0', '1', '0']
+    subspace_origin: 0
+  2:
+    eigenvalue_origin: 0
+    formula: ['0', -(-2*sqrt(5)*B44 + 2*sqrt(5)*I*B4m4)/(B20 + 20*B40 - sqrt(B20**2
+        + 40*B20*B40 + 400*B40**2 + 20*B44**2 + 20*B4m4**2)), '0', '0', '0', '1']
+    subspace_origin: 1
+  3:
+    eigenvalue_origin: 1
+    formula: ['0', -(-2*sqrt(5)*B44 + 2*sqrt(5)*I*B4m4)/(B20 + 20*B40 + sqrt(B20**2
+        + 40*B20*B40 + 400*B40**2 + 20*B44**2 + 20*B4m4**2)), '0', '0', '0', '1']
+    subspace_origin: 1
+  4:
+    eigenvalue_origin: 2
+    formula: ['0', '0', '1', '0', '0', '0']
+    subspace_origin: 2
+  5:
+    eigenvalue_origin: 2
+    formula: ['0', '0', '0', '1', '0', '0']
+    subspace_origin: 3
+free_pars: [B44, B40, B20, B4m4]
 matrix:
 - [10*B20 + 60*B40, '0', '0', '0', 12*sqrt(5)*B44 - 12*sqrt(5)*I*B4m4, '0']
 - ['0', -2*B20 - 180*B40, '0', '0', '0', 12*sqrt(5)*B44 - 12*sqrt(5)*I*B4m4]
@@ -40,7 +69,7 @@ subspaces:
         eigenvalue_origin: 1
         formula: [-(2*sqrt(5)*B44 - 2*sqrt(5)*I*B4m4)/(B20 + 20*B40 - sqrt(B20**2
             + 40*B20*B40 + 400*B40**2 + 20*B44**2 + 20*B4m4**2)), '1']
-    free_pars: [B40, B20, B4m4, B44]
+    free_pars: [B44, B40, B20, B4m4]
     matrix:
     - [10*B20 + 60*B40, 12*sqrt(5)*B44 - 12*sqrt(5)*I*B4m4]
     - [12*sqrt(5)*B44 + 12*sqrt(5)*I*B4m4, -2*B20 - 180*B40]
@@ -60,7 +89,7 @@ subspaces:
         eigenvalue_origin: 1
         formula: [-(-2*sqrt(5)*B44 + 2*sqrt(5)*I*B4m4)/(B20 + 20*B40 + sqrt(B20**2
             + 40*B20*B40 + 400*B40**2 + 20*B44**2 + 20*B4m4**2)), '1']
-    free_pars: [B40, B20, B4m4, B44]
+    free_pars: [B44, B40, B20, B4m4]
     matrix:
     - [-2*B20 - 180*B40, 12*sqrt(5)*B44 - 12*sqrt(5)*I*B4m4]
     - [12*sqrt(5)*B44 + 12*sqrt(5)*I*B4m4, 10*B20 + 60*B40]
